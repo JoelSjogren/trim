@@ -10,6 +10,8 @@ window.onpageshow = function () {
 	    for (var i = 0; i < l.length; i++) {
 		l[i].parentNode.removeChild(l[i]);
 	    }
+	} else if (location.href.indexOf("/misspelling?")!=-1) {
+	    
 	} else {
 	    var m = document.getElementsByTagName("main")[0]
 	    m.parentNode.removeChild(m);
