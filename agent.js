@@ -15,6 +15,9 @@ window.onpageshow = function () {
 	} else {
 	    var m = document.getElementsByTagName("main")[0]
 	    m.parentNode.removeChild(m);
+
+	    var d = document.getElementsByClassName("css-c7eelc eis715q0")[0];
+	    d.parentNode.removeChild(d);
 	}
     }
 
