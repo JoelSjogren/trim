@@ -14,9 +14,10 @@
   "background": { "scripts": ["background.js"] },
   "content_scripts": [
     {
-	"matches": ["https://www.dictionary.com/*",
-		    "https://www.thesaurus.com/*"],
-      "js": ["agent.js"],
+      "matches": ["https://www.dictionary.com/*",
+                  "https://www.thesaurus.com/*",
+		  "https://context.reverso.net/*"],
+      "js": ["jquery-3.5.1.js", "agent.js"],
       "run_at": "document_end"
     }
   ]

@@ -5,7 +5,7 @@ window.onpageshow = function () {
     }
 
     function TIDY() {
-	l = document.getElementsByTagName("aside");
+	l = Array.from(document.getElementsByTagName("aside"));
 	for (var i = 0; i < l.length; i++) {
 	    l[i].parentNode.removeChild(l[i]);
 	}
@@ -16,22 +16,45 @@ window.onpageshow = function () {
 	if (d === undefined) return;
 	d.parentNode.removeChild(d);
     }
+
+    function TRY(f) {
+	try {
+	    return f();
+	} catch (e) {}
+    }
+
+    function TRUST() {
+	setTimeout(() => {
+	    $("[id=onetrust-consent-sdk]").remove();  // maybe?
+	}, 2000)
+    }
     
     function init(message, sender, callback) {
-	if (MATCH(location.href, "/browse/")) {
-	    TIDY();
-	    TIDY();
-	} else if (MATCH(location.href, "/misspelling?")) {
-	    REMOVE("css-6yia5l e1qo4u831");
-	    REMOVE("css-829tqn-EditorialComponent e1bbcgok0");
-	} else if (MATCH(location.href, "dictionary.com")) {
-	    REMOVE("css-124o9s9 eyeuakq2");
-	    REMOVE("css-1j44f8t e15rv17m0");
-	    REMOVE("css-uq902e e5o20ld0");
+	if (MATCH(location.href, "dictionary.com")) {
+	    TRY(() => $('nav[aria-label*="Site Navigation"]').remove());
+	    TRY(() => $("[class*=PageWrapper]").remove());
+	    TRY(() => $("[class*=MarketingSlot]").remove());
+	    TRY(() => $("[class*=FooterContainer]").remove());
+	    TRY(() => TIDY());
+	    TRY(() => TRUST());
+	    TRY(() => $("[class*=page-footer]").remove());
+	    if (MATCH(location.href, "/browse/")) {
+		TRY(() => $("#quizzes").remove());
+		TRY(() => $("[id*=marketing]").remove());	
+	    } else if (MATCH(location.href, "/misspelling?")) {
+
+	    }
 	} else if (MATCH(location.href, "thesaurus.com")) {
-	    REMOVE("css-l1ynfs eyeuakq2");
-	    REMOVE("css-1j44f8t e15rv17m0");
-	    REMOVE("css-uq902e e5o20ld0");
+	    TRY(() => TIDY());
+	    TRY(() => TRUST());
+	    TRY(() => $("[class*=page-footer]").remove());
+	    TRY(() => $("[class*=MarketingSlot]").remove());
+	    TRY(() => $("[class*=BaseContentContainer]").remove());
+	    TRY(() => $("[class*=FooterContainer]").remove());
+	    TRY(() => $('nav[aria-label*="Site Navigation"]').remove());
+	} else if (MATCH(location.href, "context.reverso.net/traduction")) {
+	    $("#blocked-results-banner").remove();
+	    $("div").removeClass("blocked");
 	}
     }
 
